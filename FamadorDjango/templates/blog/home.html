@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="blog-flow-container">
+    <div class="blog-flow-grid">
+        {% for post in posts %}
+        <div class="blog-card card-{{ forloop.counter }}">
+            <div class="blog-card-content">
+                <h2 class="blog-title">{{ post.title }}</h2>
+                <div class="blog-meta">
+                    <span class="blog-author">By {{ post.author.username }}</span>
+                    <span class="blog-date">{{ post.created_at|date:"M d, Y" }}</span>
+                </div>
+                <p class="blog-excerpt">{{ post.content|truncatewords:30 }}</p>
+                <a href="{% url 'blog:post_detail' post.pk %}" class="read-more">Read More →</a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-posts">
+            <p>No blog posts yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .blog-flow-container {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .blog-flow-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+    }
+
+    .blog-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .blog-card:nth-child(4n+1) {
+        border-radius: 15px 50px 15px 15px;
+    }
+    .blog-card:nth-child(4n+2) {
+        border-radius: 50px 15px 15px 15px;
+    }
+    .blog-card:nth-child(4n+3) {
+        border-radius: 15px 15px 50px 15px;
+    }
+    .blog-card:nth-child(4n+4) {
+        border-radius: 15px 15px 15px 50px;
+    }
+
+    .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
+
+    .blog-title {
+        margin: 0 0 10px 0;
+        font-size: 1.4rem;
+        color: #2c3e50;
+    }
+
+    .blog-meta {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+        color: #7f8c8d;
+    }
+
+    .blog-excerpt {
+        color: #34495e;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .read-more {
+        display: inline-block;
+        color: #3498db;
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .read-more:hover {
+        color: #2980b9;
+    }
+
+    .blog-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 30%;
+        height: 8px;
+        background: linear-gradient(90deg, #3498db, #2ecc71);
+    }
+
+    .blog-card:nth-child(odd)::before {
+        left: 0;
+        right: auto;
+        background: linear-gradient(90deg, #e74c3c, #f39c12);
+    }
+
+    @media (max-width: 768px) {
+        .blog-flow-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .blog-card {
+            border-radius: 15px !important;
+        }
+    }
+</style>
+{% endblock %}
