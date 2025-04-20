@@ -68,7 +68,12 @@ For Linux
     http://127.0.0.1:8000/
 
 
-All done
+# Into the website 
+    Login 
+        Username : admin
+        Password : moi1234
+
+All done you can now access to the user dashboard
 
 
   
