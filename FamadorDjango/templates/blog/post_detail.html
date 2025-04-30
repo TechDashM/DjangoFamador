@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-light py-5">
+    <div class="container d-flex justify-content-center">
+
+        <!-- Centered White Shape Box -->
+        <div class="bg-white p-4 rounded shadow-sm text-center" style="max-width: 800px; width: 100%;">
+
+            <!-- Centered Featured Image -->
+            {% if post.image %}
+            <div class="mb-4">
+                <img 
+                    src="{{ post.image.url }}" 
+                    class="img-fluid rounded mx-auto d-block"
+                    alt="{{ post.title }}"
+                    style="max-height: 400px; object-fit: cover;"
+                >
+            </div>
+            {% endif %}
+
+            <!-- Post Title -->
+            <h1 class="mb-3 display-5">{{ post.title }}</h1>
+
+            <!-- Author and Date Info -->
+            <p class="text-muted mb-4">
+                Posted by {{ post.author.username }} on {{ post.created_at|date:"F d, Y" }}
+            </p>
+
+            <!-- Post Content -->
+            <div class="post-body fs-5 lh-base mb-4 text-start">
+                {{ post.content|linebreaks }}
+            </div>
+
+            <!-- Edit/Delete Buttons -->
+            {% if user == post.author %}
+            <div class="text-end">
+                <a href="#" class="btn btn-primary me-2">Edit</a>
+                <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
