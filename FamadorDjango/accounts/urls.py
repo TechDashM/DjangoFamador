@@ -1,11 +1,13 @@
 from django.urls import path
-from .views import register_view, login_view, logout_view, dashboard
+from . import views
 
-app_name = 'accounts'  # This is crucial
+app_name = 'accounts'
 
 urlpatterns = [
-    path('register/', register_view, name='register'),
-    path('login/', login_view, name='login'),  # This defines the login URL
-    path('logout/', logout_view, name='logout'),
-    path('dashboard/', dashboard, name='dashboard'),
+    path('register/', views.register_view, name='register'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('settings/', views.settings_view, name='settings'),
+    path('change-password/', views.change_password, name='change_password'),
 ]
